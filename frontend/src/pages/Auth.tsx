@@ -1,11 +1,3 @@
-import React, { useState } from 'react';
-import { cn } from '../lib/utils';
-import { useNavigate } from 'react-router-dom';
-
-interface AuthProps {
-    onLogin: (token: string, role: string) => void;
-}
-
 export function Auth({ onLogin }: AuthProps) {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
@@ -21,7 +13,7 @@ export function Auth({ onLogin }: AuthProps) {
         const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
 
         try {
-            const res = await fetch(endpoint, {
+            const res = await fetch(`${API_BASE_URL}${endpoint}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(isLogin ? { email, password } : { email, username, password }),

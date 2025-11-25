@@ -1,11 +1,4 @@
-import React, { useState } from 'react';
-import { Briefcase, FolderOpen, FileText, Download, Eye, Trash2, Edit2 } from 'lucide-react';
-import { cn } from '../lib/utils';
-import { PDFViewer } from '../components/PDFViewer';
-
-interface ResourcesProps {
-    token?: string;
-    role?: string;
+role ?: string;
 }
 
 // --- Resources Tab Component ---
@@ -24,14 +17,14 @@ function ResourcesTab({ token, role }: ResourcesProps) {
     const isAdminOrMod = role === 'ADMIN' || role === 'MOD';
 
     React.useEffect(() => {
-        fetch('/api/branches')
+        fetch(`${API_BASE_URL}/api/branches`)
             .then(res => res.json())
             .then(data => setBranches(data));
     }, []);
 
     React.useEffect(() => {
         if (selectedBranch) {
-            fetch(`/api/subjects?branchId=${selectedBranch.id}&semesterId=${selectedBranch.semesters.find((s: any) => s.number === selectedSemester)?.id}`)
+            fetch(`${API_BASE_URL}/api/subjects?branchId=${selectedBranch.id}&semesterId=${selectedBranch.semesters.find((s: any) => s.number === selectedSemester)?.id}`)
                 .then(res => res.json())
                 .then(data => setSubjects(data));
         }
@@ -41,7 +34,7 @@ function ResourcesTab({ token, role }: ResourcesProps) {
         if (!confirm('Are you sure you want to delete this file?')) return;
 
         try {
-            const res = await fetch(`/api/resources/${fileId}`, {
+            const res = await fetch(`${API_BASE_URL}/api/resources/${fileId}`, {
                 method: 'DELETE',
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -49,7 +42,7 @@ function ResourcesTab({ token, role }: ResourcesProps) {
                 alert('File deleted successfully');
                 // Refresh subject data
                 if (selectedSubject) {
-                    const refreshed = await fetch(`/api/subjects/${selectedSubject.id}`).then(r => r.json());
+                    const refreshed = await fetch(`${API_BASE_URL}/api/subjects/${selectedSubject.id}`).then(r => r.json());
                     setSelectedSubject(refreshed);
                 }
             }
@@ -63,7 +56,7 @@ function ResourcesTab({ token, role }: ResourcesProps) {
         if (!editingSubject) return;
 
         try {
-            const res = await fetch(`/api/subjects/${editingSubject.id}`, {
+            const res = await fetch(`${API_BASE_URL}/api/subjects/${editingSubject.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,7 +69,7 @@ function ResourcesTab({ token, role }: ResourcesProps) {
                 alert('Subject updated successfully');
                 setEditingSubject(null);
                 // Refresh subjects
-                const refreshed = await fetch(`/api/subjects?branchId=${selectedBranch.id}&semesterId=${selectedBranch.semesters.find((s: any) => s.number === selectedSemester)?.id}`).then(r => r.json());
+                const refreshed = await fetch(`${API_BASE_URL}/api/subjects?branchId=${selectedBranch.id}&semesterId=${selectedBranch.semesters.find((s: any) => s.number === selectedSemester)?.id}`).then(r => r.json());
                 setSubjects(refreshed);
             }
         } catch (error) {
@@ -89,7 +82,7 @@ function ResourcesTab({ token, role }: ResourcesProps) {
         if (!confirm('Are you sure you want to delete this subject? All units and files will be deleted.')) return;
 
         try {
-            const res = await fetch(`/api/subjects/${subjectId}`, {
+            const res = await fetch(`${API_BASE_URL}/api/subjects/${subjectId}`, {
                 method: 'DELETE',
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -97,7 +90,7 @@ function ResourcesTab({ token, role }: ResourcesProps) {
             if (res.ok) {
                 alert('Subject deleted successfully');
                 // Refresh subjects
-                const refreshed = await fetch(`/api/subjects?branchId=${selectedBranch.id}&semesterId=${selectedBranch.semesters.find((s: any) => s.number === selectedSemester)?.id}`).then(r => r.json());
+                const refreshed = await fetch(`${API_BASE_URL}/api/subjects?branchId=${selectedBranch.id}&semesterId=${selectedBranch.semesters.find((s: any) => s.number === selectedSemester)?.id}`).then(r => r.json());
                 setSubjects(refreshed);
             }
         } catch (error) {

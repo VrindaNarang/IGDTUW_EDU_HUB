@@ -1,12 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { cn } from '../lib/utils';
-import { Users, Upload, Plus } from 'lucide-react';
-
-interface User {
-    id: number;
-    email: string;
-    role: string;
-    createdAt: string;
+createdAt: string;
 }
 
 interface DashboardProps {
@@ -44,7 +36,7 @@ export function Dashboard({ token, role }: DashboardProps) {
 
     // Fetch branches for upload
     useEffect(() => {
-        fetch('/api/branches')
+        fetch(`${API_BASE_URL}/api/branches`)
             .then(res => res.json())
             .then(data => setBranches(data));
     }, []);
@@ -52,7 +44,7 @@ export function Dashboard({ token, role }: DashboardProps) {
     // Fetch subjects when branch and semester are selected
     useEffect(() => {
         if (selectedBranch && selectedSemester) {
-            fetch(`/api/subjects?branchId=${selectedBranch.id}&semesterId=${selectedSemester.id}`)
+            fetch(`${API_BASE_URL}/api/subjects?branchId=${selectedBranch.id}&semesterId=${selectedSemester.id}`)
                 .then(res => res.json())
                 .then(data => setSubjects(data));
         }
@@ -60,7 +52,7 @@ export function Dashboard({ token, role }: DashboardProps) {
 
     const fetchUsers = async () => {
         try {
-            const res = await fetch('/api/admin/users', {
+            const res = await fetch(`${API_BASE_URL}/api/admin/users`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
@@ -72,7 +64,7 @@ export function Dashboard({ token, role }: DashboardProps) {
 
     const promoteUser = async (userId: number, newRole: string) => {
         try {
-            await fetch('/api/admin/promote', {
+            await fetch(`${API_BASE_URL}/api/admin/promote`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -98,7 +90,7 @@ export function Dashboard({ token, role }: DashboardProps) {
         formData.append('unitId', selectedUnit);
 
         try {
-            const res = await fetch('/api/upload', {
+            const res = await fetch(`${API_BASE_URL}/api/upload`, {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${token}` },
                 body: formData
@@ -127,7 +119,7 @@ export function Dashboard({ token, role }: DashboardProps) {
         }
 
         try {
-            const res = await fetch('/api/subjects', {
+            const res = await fetch(`${API_BASE_URL}/api/subjects`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
