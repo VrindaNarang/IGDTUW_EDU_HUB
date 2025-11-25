@@ -3,10 +3,11 @@ FROM node:18-slim
 WORKDIR /app
 
 # Install build tools needed for native modules (e.g., prisma)
-RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ libssl-dev ca-certificates && rm -rf /var/lib/apt/lists/*
 
 COPY package*.json ./
-RUN npm install --production
+COPY package-lock.json ./
+RUN npm ci
 
 COPY . .
 
