@@ -1,4 +1,15 @@
-createdAt: string;
+import React, { useState, useEffect } from 'react';
+import { Users, Upload, BookPlus, UserPlus, Shield, Trash2, Plus } from 'lucide-react';
+import { cn } from '../lib/utils';
+
+const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:5000';
+
+interface User {
+    id: number;
+    email: string;
+    username: string;
+    role: string;
+    createdAt: string;
 }
 
 interface DashboardProps {

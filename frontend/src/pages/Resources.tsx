@@ -1,4 +1,12 @@
-role ?: string;
+import React, { useState } from 'react';
+import { Upload, FileText, Trash2, Edit2, Save, X, Plus, ChevronLeft, Download } from 'lucide-react';
+import { PDFViewer } from '../components/PDFViewer';
+
+const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:5000';
+
+interface ResourcesProps {
+    token: string;
+    role?: string;
 }
 
 // --- Resources Tab Component ---
