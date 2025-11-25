@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0f172a;
+  --color-surface: #1e293b;
+  --color-primary: #6366f1;
+  --color-secondary: #8b5cf6;
+  --color-accent: #a855f7;
+
+  --image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+  --image-hero-pattern: url('/hero-pattern.svg');
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl;
+  }
+
+  .glass-hover {
+    @apply hover:bg-white/20 transition-all duration-300;
+  }
+}

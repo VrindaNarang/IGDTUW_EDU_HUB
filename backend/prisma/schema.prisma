@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  username  String
+  password  String
+  role      String   @default("USER") // "ADMIN", "MOD", "USER"
+  createdAt DateTime @default(now())
+}
+
+model Branch {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  slug      String     @unique
+  semesters Semester[]
+}
+
+model Semester {
+  id       Int       @id @default(autoincrement())
+  number   Int
+  branchId Int
+  branch   Branch    @relation(fields: [branchId], references: [id])
+  subjects Subject[]
+
+  @@unique([branchId, number])
+}
+
+model Subject {
+  id         Int      @id @default(autoincrement())
+  name       String
+  code       String?
+  semesterId Int
+  semester   Semester @relation(fields: [semesterId], references: [id], onDelete: Cascade)
+  units      Unit[]
+}
+
+model Unit {
+  id        Int            @id @default(autoincrement())
+  number    Int
+  name      String?
+  subjectId Int
+  subject   Subject        @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  files     ResourceFile[]
+
+  @@unique([subjectId, number])
+}
+
+model ResourceFile {
+  id          Int      @id @default(autoincrement())
+  name        String
+  type        String
+  filePath    String?  // Local path relative to uploads/
+  url         String?  // Public URL
+  unitId      Int
+  unit        Unit     @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+}
