@@ -4,14 +4,14 @@ A comprehensive educational resource management platform for Indira Gandhi Delhi
 
 ## Features
 
-- 🎓 **Branch-wise Resources**: Organized study materials for all engineering branches
-- 📚 **Semester Management**: Resources categorized by semesters (1-8)
-- 📄 **PDF Viewer**: In-app PDF viewing with download options
-- 👥 **Role-based Access**: USER, MOD, and ADMIN roles with different permissions
-- 🔐 **Secure Authentication**: JWT-based authentication system
-- 📤 **Resource Upload**: Admin/Mod can upload and manage resources
-- ✏️ **Subject Management**: Create, edit, and delete subjects
-- 🎨 **Modern UI**: Dark theme with glassmorphism design
+-  **Branch-wise Resources**: Organized study materials for all engineering branches
+-  **Semester Management**: Resources categorized by semesters (1-8)
+-  **PDF Viewer**: In-app PDF viewing with download options
+-  **Role-based Access**: USER, MOD, and ADMIN roles with different permissions
+-  **Secure Authentication**: JWT-based authentication system
+-  **Resource Upload**: Admin/Mod can upload and manage resources
+-  **Subject Management**: Create, edit, and delete subjects
+-  **Modern UI**: Dark theme with glassmorphism design
 
 ## Tech Stack
 
