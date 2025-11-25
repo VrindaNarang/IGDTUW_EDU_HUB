@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Upload, FileText, Trash2, Edit2, Save, X, Plus, ChevronLeft, Download } from 'lucide-react';
+import { Upload, FileText, Trash2, Edit2, Save, X, Plus, ChevronLeft, Download, FolderOpen, Briefcase, Eye } from 'lucide-react';
 import { PDFViewer } from '../components/PDFViewer';
+import { cn } from '../lib/utils';
 
 const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:5000';
 

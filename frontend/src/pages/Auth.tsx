@@ -1,3 +1,13 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { LogIn, UserPlus } from 'lucide-react';
+
+const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:5000';
+
+interface AuthProps {
+    onLogin: (token: string, role: string) => void;
+}
+
 export function Auth({ onLogin }: AuthProps) {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
