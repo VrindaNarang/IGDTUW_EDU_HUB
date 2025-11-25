@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends python3 make g+
 
 COPY package*.json ./
 COPY package-lock.json ./
-RUN npm ci
+RUN npm install && npm run build 
 
 COPY . .
 
